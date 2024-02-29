@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('assignment')->group(function(){
+Route::prefix('assignment/v1/')->group(function(){
     Route::get('/all', [ToDoController::class, 'allAssignment']);
     Route::get('/id/{uniqueID}', [ToDoController::class, 'assignmentById']);
     Route::post('/add', [ToDoController::class, 'createToDo']);
