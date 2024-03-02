@@ -2,10 +2,7 @@
 
 namespace App\Http\Helpers;
 
-use Illuminate\Support\Facades\DB;
-use MongoDB\BSON\ObjectId;
 use MongoDB\Client;
-use MongoDB\Collection;
 
 class MongoModel
 {

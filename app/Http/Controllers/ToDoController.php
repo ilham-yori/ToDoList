@@ -85,7 +85,6 @@ class ToDoController extends Controller
             'title'=> $request->title,
             'description'=>$request->description,
             'assigned'=> $request->assigned,
-            'created_at'=>Carbon::now()
         ];
 
 		$assignment = $this->todoService->getToDoById($assignmentID);

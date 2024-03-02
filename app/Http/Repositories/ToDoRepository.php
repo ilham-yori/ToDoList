@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Http\Helpers\MongoModel;
+use Carbon\Carbon;
 
 class ToDoRepository
 {
@@ -19,7 +20,7 @@ class ToDoRepository
 			'title'=>$data['title'],
 			'description'=>$data['description'],
 			'assigned'=>$data['assigned'],
-			'created_at'=>time()
+			'created_at'=>$data['created_at']
 		];
 
 		$id = $this->assignment->save($dataSaved);
