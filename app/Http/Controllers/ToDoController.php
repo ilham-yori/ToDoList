@@ -26,12 +26,12 @@ class ToDoController extends Controller
             'title'=> $request->title,
             'description'=>$request->description,
             'assigned'=> $request->assigned,
-            'created_at'=>Carbon::now()
+            'created_at'=>Carbon::now()->timestamp
         ];
 
 		$this->todoService->addToDoList($data);
 
-		return response()->json("Assignment created successfully", 201);
+		return response()->json(['message'=>'Assignment created successfully'], 201);
     }
 
     public function allAssignment()
@@ -59,14 +59,14 @@ class ToDoController extends Controller
 		if(!$assignment)
 		{
 			return response()->json([
-				"message"=> "Assignment ".$assignmentID." Not Found"
+				'message'=> 'Assignment '.$assignmentID.' Not Found'
 			], 401);
 		}
 
         $this->todoService->deleteAssignment($assignmentID);
 
 		return response()->json([
-			'message'=> 'Successfully Delete Assignment With This ID :  '.$assignmentID,
+			'message'=> 'Successfully Delete Assignment With An ID :  '.$assignmentID,
 		], 200);
 	}
 
@@ -91,6 +91,6 @@ class ToDoController extends Controller
 
 		$this->todoService->updateToDo($assignment, $data);
 
-		return response()->json("Assignment has been updated", 200);
+		return response()->json(['message'=>'Assignment has been updated'], 200);
 	}
 }
