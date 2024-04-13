@@ -26,9 +26,15 @@ class MongoModel
 
     public function save(array $data)
     {
-        $id = isset($data['_id']) ? $data['_id']: (string) new \MongoDB\BSON\ObjectId();
-        $this->collection->updateOne(['_id' => $id], ['$set' => $data], ['upsert'=>true]);
-        return (string) $id;
+        if (isset($data['_id'])) {
+            $id = $data['_id'];
+            $data['_id'] = new ObjectId($id);
+            $this->collection->replaceOne(['_id' => $data['_id']], $data);
+            return $id;
+        } else {
+            $result = $this->collection->insertOne($data);
+            return $result->getInsertedId();
+        }
     }
 
     public function deleteQuery($filter)

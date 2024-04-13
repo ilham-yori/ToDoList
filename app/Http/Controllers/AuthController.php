@@ -57,9 +57,10 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'Authorization' => [
-                'Token' => $token,
-                'Type' => 'Bearer',
+            'authorization' => [
+                'token' => $token,
+                'type' => 'Bearer',
+                'expires_in'=> 60 * 60
             ]
         ]);
     }
@@ -75,10 +76,11 @@ class AuthController extends Controller
     public function refresh()
     {
         return response()->json([
-            'user' => Auth::user(),
-            'Authorization' => [
-                'Token' => Auth::refresh(),
-                'Type' => 'Bearer',
+            'user' => Auth::user()->name,
+            'authorization' => [
+                'token' => Auth::refresh(),
+                'type' => 'Bearer',
+                'expires_in'=> 60 * 60
             ]
         ]);
     }

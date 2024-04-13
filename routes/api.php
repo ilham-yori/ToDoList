@@ -23,16 +23,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
-    Route::post('logout', 'logout')->middleware('auth.jwt');
-    Route::post('refresh', 'refresh')->middleware('auth.jwt'); 
+    Route::post('logout', 'logout')->middleware('api');
+    Route::post('refresh', 'refresh')->middleware('api');
 });
 
-Route::group(['prefix'=>'assignment/v1/'],function(){
-    Route::group(['middleware'=>'auth.jwt'],function(){
-        Route::get('/all', [ToDoController::class, 'allAssignment']);
-        Route::get('/id/{uniqueID}', [ToDoController::class, 'assignmentById']);
-        Route::post('/add', [ToDoController::class, 'createToDo']);
-        Route::delete('/delete', [ToDoController::class, 'deleteToDo']);
-        Route::patch('/update', [ToDoController::class, 'updateTodo']);
-    });
+Route::group(['prefix'=>'assignment/v1/','middleware'=>'api'],function(){
+    Route::get('/all', [ToDoController::class, 'allAssignment']);
+    Route::get('/id/{uniqueID}', [ToDoController::class, 'assignmentById']);
+    Route::post('/add', [ToDoController::class, 'createToDo']);
+    Route::delete('/delete', [ToDoController::class, 'deleteToDo']);
+    Route::patch('/update', [ToDoController::class, 'updateTodo']);
 });
